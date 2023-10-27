@@ -1,0 +1,53 @@
+<%- include("partials/header.ejs") %>
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">To Do List Application</h1>
+        <p class="lead text-body-secondary">Feel free to list all of the things that you must accomplish.</p>
+        <p>
+            <form action="/submit" method="POST" >
+                <input type="text" name="task" class="form-control" id="floatingInput" placeholder="New Task">
+                <input type="text" name="time" class="form-control" id="floatingInput" placeholder="Time">
+                <button class="btn btn-primary w-100 py-2" type="submit">Add Task</button>
+            </form>
+          </p>
+      </div>
+    </div>
+  </section>
+
+<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+    <div class="list-group">
+        <% if (locals.listOfTasks) { %>
+            
+        
+        <% listOfTasks.forEach((task) => { %>
+
+        <label class="list-group-item d-flex gap-3">
+        <input class="form-check-input flex-shrink-0" type="checkbox" value="" style="font-size: 1.375em;">
+        <span class="pt-1 form-checked-content">
+          <strong><%= task.task %></strong>
+          <small class="d-block text-body-secondary">
+            <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#calendar-event"></use></svg>
+            <%= task.time %>
+          </small>
+        </span>
+      </label>
+
+        <%}) %>
+        <% } else { %>
+            <label class="list-group-item d-flex gap-3 bg-body-tertiary">
+                <input class="form-check-input form-check-input-placeholder bg-body-tertiary flex-shrink-0 pe-none" disabled="" type="checkbox" value="" style="font-size: 1.375em;">
+                <span class="pt-1 form-checked-content">
+                  <span contenteditable="true" class="w-100">Add new task...</span>
+                  <small class="d-block text-body-secondary">
+                    <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#list-check"></use></svg>
+                    Add time
+                  </small>
+                </span>
+              </label>
+        <% } %>
+    </div>
+  </div>
+
+  <%- include("partials/footer.ejs") %>
